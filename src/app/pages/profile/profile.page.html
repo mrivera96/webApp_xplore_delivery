@@ -1,9 +1,58 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>profile</ion-title>
+  <ion-toolbar color="xplore">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="true"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Mi Perfil</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+  <ion-row class="ion-text-center">
+    <ion-col size="12">
+      <ion-icon style="font-size: 15rem" color="xplrsecond"  name="person-circle-outline"></ion-icon>
+    </ion-col>
+    <ion-col size="12">
+      <h2>
+        {{currentCustomer.nomRepresentante}}
+      </h2>
+
+    </ion-col>
+
+  </ion-row>
+    <ion-list lines="full">
+
+      <ion-item>
+        <ion-label color="default" position="floating">Número de Teléfono:</ion-label>
+        <ion-input readonly [value]="currentCustomer.numTelefono">
+        </ion-input>
+        <ion-icon color="xplrsecond" slot="start" name="call-outline"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="default" position="floating">e-mail:</ion-label>
+        <ion-input readonly [value]="currentCustomer.email"></ion-input>
+        <ion-icon color="xplrsecond" slot="start" name="mail-outline"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="default" position="floating">Contraseña:</ion-label>
+        <ion-input type="password" readonly [value]="currentCustomer.numIdentificacion"></ion-input>
+        <ion-icon color="xplrsecond" slot="start" name="lock-closed-outline"></ion-icon>
+        <ion-button color="xplore" (click)="goChangePass()" slot="end" fill="clear">
+          Cambiar
+        </ion-button>
+      </ion-item>
+
+    </ion-list>
+    <br>
+    <br>
+    <br>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button type="button" color="xplrsecond" routerLink="/edit-info" >
+      <ion-icon name="create-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
 </ion-content>

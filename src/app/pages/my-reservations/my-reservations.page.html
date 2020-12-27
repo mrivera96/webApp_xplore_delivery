@@ -1,26 +1,27 @@
 <ion-header>
   <ion-toolbar color="xplore">
     <ion-buttons slot="start">
-      <ion-menu-button autoHide="true"></ion-menu-button> 
+      <ion-menu-button autoHide="true"></ion-menu-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">Mis Reservas</ion-title>
+    <ion-title class="ion-text-center">Mis Solicitudes</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <ion-item *ngFor="let delivery of myReservations" routerLink="/reservation-details/{{delivery.idDelivery}}">
-      <ion-avatar slot="start">
-        <ion-icon color="xplrsecond" *ngIf="delivery.idEstado == 37 || delivery.idEstado == 38 " name="speedometer-outline"></ion-icon>
-        <ion-icon color="xplrsecond" *ngIf="delivery.idEstado == 34" name="reader-outline"></ion-icon>
-        <ion-icon color="xplrsecond" *ngIf="delivery.idEstado == 39" name="checkmark-circle-outline"></ion-icon>
-        <ion-icon color="xplrsecond" *ngIf="delivery.idEstado == 36" name="ban-outline"></ion-icon>
-      </ion-avatar>
-      <ion-label>
-        <h2>No. Reserva {{delivery.idDelivery}}</h2>
-        <h3>{{delivery.fechaReserva}}</h3>
-        <p> Estado de Reserva: {{delivery.estado.descEstado}}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
-</ion-content>
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button  tab="finished-reservations">
+      <ion-icon color="xplrsecond" name="checkmark-outline"></ion-icon>
+      <ion-label>Finalizadas</ion-label>
+      <ion-badge color="xplrsecond">{{countFinished}}</ion-badge>
+    </ion-tab-button>
+
+    <ion-tab-button color="xplrsecond" tab="pending-reservations">
+      <ion-icon color="xplrsecond" name="time-outline"></ion-icon>
+      <ion-label>Pendientes</ion-label>
+      <ion-badge color="xplrsecond">{{countPending}}</ion-badge>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
+
+
+

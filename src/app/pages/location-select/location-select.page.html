@@ -9,9 +9,8 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list lines="full">
     <ion-item>
-      <ion-label>Tipo Dirección de Recogida</ion-label>
       <ion-select placeholder="Seleccione una opción" id="prevDirRecogida" [(ngModel)]="locationOption" required>
         <ion-select-option [value]="1" (ionSelect)="setCurrentLocationOrigin()">Ubicación Actual</ion-select-option>
         <ion-select-option [value]="2" (ionSelect)="clearLocationField()">Ingresar Ubicación
@@ -46,12 +45,12 @@
 
     <ion-item>
       <ion-label color="default" position="floating">Punto de destino:</ion-label>
-      <ion-input [(ngModel)]="autocompleteDest.input" (ionInput)="UpdateSearchResultsDest()" placeholder="Buscar un lugar"
-        (ionClear)="ClearAutocompleteDest()" required maxlength="100" type="text">
+      <ion-input [(ngModel)]="autocompleteDest.input" (ionInput)="UpdateSearchResultsDest()"
+        placeholder="Buscar un lugar" (ionClear)="ClearAutocompleteDest()" required maxlength="100" type="text">
       </ion-input>
       <ion-icon color="xplrsecond" slot="start" name="pin-outline"></ion-icon>
     </ion-item>
-    <ion-list  [hidden]="autocompleteItemsDest.length == 0">
+    <ion-list [hidden]="autocompleteItemsDest.length == 0">
       <ion-item *ngFor="let item of autocompleteItemsDest" tappable (click)="SelectSearchResultDest(item)">
         {{ item.description }}
       </ion-item>
@@ -64,7 +63,8 @@
   </div>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button *ngIf="!confirmedLocation" (click)="calculateAndDisplayRoute(); calculatedistanceBefore()" color="xplrsecond"
+    <ion-fab-button *ngIf="!confirmedLocation"
+      (click)="calculateAndDisplayRoute(); calculatedistanceBefore()" color="xplrsecond"
       [disabled]="autocomplete.input == '' || autocompleteDest.input == ''">
       <ion-icon name="map-outline"></ion-icon>
     </ion-fab-button>
@@ -82,7 +82,7 @@
         <ion-icon name="checkmark-outline"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
-    
+
   </ion-fab>
 
 </ion-content>

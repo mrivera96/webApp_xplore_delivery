@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="xplore">
     <ion-buttons slot="start">
-      <ion-menu-button autoHide="true"></ion-menu-button> 
+      <ion-menu-button autoHide="true"></ion-menu-button>
     </ion-buttons>
     <ion-title class="ion-text-center">Solicitudes Pendientes</ion-title>
   </ion-toolbar>
@@ -10,16 +10,26 @@
 <ion-content>
   <ion-list lines="full">
     <ion-item *ngFor="let delivery of myReservations" routerLink="/reservation-details/{{delivery.idDelivery}}">
-      <ion-avatar slot="start">
-        <ion-icon color="xplrsecond" *ngIf="delivery.idEstado == 37 || delivery.idEstado == 38 " name="speedometer-outline"></ion-icon>
-        <ion-icon color="xplrsecond" *ngIf="delivery.idEstado == 34" name="reader-outline"></ion-icon>
-        <ion-icon color="xplrsecond" *ngIf="delivery.idEstado == 39" name="checkmark-circle-outline"></ion-icon>
-        <ion-icon color="xplrsecond" *ngIf="delivery.idEstado == 36" name="ban-outline"></ion-icon>
-      </ion-avatar>
+      <ion-icon slot="start" color="xplrsecond" *ngIf="delivery.idEstado == 37 || delivery.idEstado == 38 "
+        name="car-sport-outline"></ion-icon>
+      <ion-icon slot="start" color="xplrsecond" *ngIf="delivery.idEstado == 34" name="time-outline"></ion-icon>
+      <ion-icon slot="start" color="xplrsecond" *ngIf="delivery.idEstado == 39" name="checkmark-circle-outline">
+      </ion-icon>
+      <ion-icon slot="start" color="xplrsecond" *ngIf="delivery.idEstado == 36" name="close-circle-outline"></ion-icon>
+
       <ion-label>
         <h2>No. Reserva {{delivery.idDelivery}}</h2>
         <h3>{{delivery.fechaReserva}}</h3>
         <p> Estado de Reserva: {{delivery.estado.descEstado}}</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="myReservations.length == 0">
+      <ion-icon slot="start" color="xplrsecond" name="time-outline">
+      </ion-icon>
+    
+      <ion-label>
+        <h2>No hay registros para mostrar</h2>
       </ion-label>
     </ion-item>
   </ion-list>

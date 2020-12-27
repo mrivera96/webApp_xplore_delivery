@@ -3,12 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 
-import { RegisterPage } from './register.page';
+import { SignUpPage } from './sign-up.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: RegisterPage
+    component: SignUpPage
   }
 ];
 

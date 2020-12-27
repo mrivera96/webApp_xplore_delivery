@@ -1,9 +1,55 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>confirmation-page</ion-title>
+  <ion-toolbar color="xplore">
+    <ion-buttons slot="start">
+      <ion-back-button defaulHref="main" routerLink="/sign-up">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Código de Verificación</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <br>
+  <ion-row>
+    <ion-col class="ion-text-center" size="12">
+      <img src="assets/img/chat-icon.png" alt="verification-icon" width="30%">
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col class="ion-text-center" size="12">
+      <h3>Hemos enviado un código de verificación a</h3>
+      <h2><strong>{{data.form.numTelefono}}</strong> </h2>
+      <h5>¿No recibiste el código? <a (click)="sendCode()">Haz clic aquí</a></h5>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col class="ion-text-center" size="12">
+      <h3>Ingresa el código abajo:</h3>
+    </ion-col>
+    <ion-col class="ion-text-center" size="12">
+      <ion-row>
+        <ion-input [(ngModel)]="confirmationCod[0]" type="number" placeholder="0" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==1) return false;"></ion-input>
+        <ion-input [(ngModel)]="confirmationCod[1]" type="number" placeholder="0" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==1) return false;"></ion-input>
+        <ion-input [(ngModel)]="confirmationCod[2]" type="number" placeholder="0" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==1) return false;"></ion-input>
+        <ion-input [(ngModel)]="confirmationCod[3]" type="number" placeholder="0" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==1) return false;"></ion-input>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+  <br>
+  <br>
+  <br>
+
+  <ion-row>
+    <ion-col>
+      <ion-button [disabled]="confirmationCod.length < 4" color="xplore" type="button" expand="block" fill="outline"
+        shape="round" (click)="confirmCode()" >
+        Confirmar
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+
 
 </ion-content>

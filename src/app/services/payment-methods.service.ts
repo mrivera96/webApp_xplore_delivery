@@ -6,7 +6,7 @@ import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class PaymenthMethodsService {
+export class PaymentMethodsService {
 
   constructor(
     private authService: AuthService,

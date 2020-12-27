@@ -42,4 +42,11 @@ export class DeliveriesService {
       tkn: this.authService.currentUserValue.access_token
     })
   }
+
+  getPendingCustomerDeliveries(){
+    return this.http.post<any>(`${environment.apiUrl}`, {
+      function: 'getPendingCustomerDeliveries',
+      tkn: this.authService.currentUserValue.access_token
+    })
+  }
 }

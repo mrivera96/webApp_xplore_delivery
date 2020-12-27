@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MyAdressesPageRoutingModule } from './my-adresses-routing.module';
+import { MyAdressesPageRoutingModule } from './my-addresses-routing.module';
 
-import { MyAdressesPage } from './my-adresses.page';
+import { MyAddressesPage } from './my-addresses.page';
 import { Dialogs } from '@ionic-native/dialogs/ngx';
 
 @NgModule({
@@ -17,6 +17,6 @@ import { Dialogs } from '@ionic-native/dialogs/ngx';
     MyAdressesPageRoutingModule
   ],
   providers:[Dialogs],
-  declarations: [MyAdressesPage]
+  declarations: [MyAddressesPage]
 })
 export class MyAdressesPageModule {}

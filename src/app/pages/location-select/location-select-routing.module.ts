@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { NewTransferPage } from './new-transfer.page';
+import { LocationSelectPage } from './location-select.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: NewTransferPage
+    component: LocationSelectPage
   }
 ];
 

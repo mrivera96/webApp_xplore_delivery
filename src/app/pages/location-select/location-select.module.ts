@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { NewTransferPageRoutingModule } from './new-transfer-routing.module';
+import { NewTransferPageRoutingModule } from './location-select-routing.module';
 
-import { NewTransferPage } from './new-transfer.page';
+import { LocationSelectPage } from './location-select.page';
 import { Dialogs } from '@ionic-native/dialogs/ngx';
 
 @NgModule({
@@ -17,6 +17,6 @@ import { Dialogs } from '@ionic-native/dialogs/ngx';
     NewTransferPageRoutingModule
   ],
   providers:[Dialogs],
-  declarations: [NewTransferPage]
+  declarations: [LocationSelectPage]
 })
 export class NewTransferPageModule {}

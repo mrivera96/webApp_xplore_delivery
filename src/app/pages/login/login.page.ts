@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import {ModalController, NavController} from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
-import { SignInModalPage } from '../sign-in-modal/sign-in-modal.page';
+import { SignInPage } from '../sign-in/sign-in.page';
 
 @Component({
   selector: 'app-login',
@@ -12,13 +12,13 @@ import { SignInModalPage } from '../sign-in-modal/sign-in-modal.page';
 export class LoginPage implements OnInit {
   currentModal = null
   constructor(
-    public modalController: ModalController,
+    public navCtrl: NavController,
     private authService: AuthService,
     private router: Router
   ) {
     // redirigir si el usuario está logueado
     if (this.authService.currentUserValue) {
-      this.router.navigate(['main'])
+      this.navCtrl.navigateForward('main')
     }
   }
 
@@ -26,7 +26,7 @@ export class LoginPage implements OnInit {
   }
 
   openSingUp() {
-    this.router.navigate(['sign-up'])
+    this.navCtrl.navigateForward('sign-up')
   }
 
 }

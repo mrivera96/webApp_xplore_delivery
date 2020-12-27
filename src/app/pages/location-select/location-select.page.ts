@@ -8,16 +8,16 @@ import { BranchOfficeService } from 'src/app/services/branch-office.service';
 import { Branch } from 'src/app/models/branch';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { AlertController, LoadingController } from '@ionic/angular';
+import {AlertController, LoadingController, NavController} from '@ionic/angular';
 import { NavParamService } from 'src/app/services/nav-param.service';
 
 declare var google;
 @Component({
   selector: 'app-new-transfer',
-  templateUrl: './new-transfer.page.html',
-  styleUrls: ['./new-transfer.page.scss'],
+  templateUrl: './location-select.page.html',
+  styleUrls: ['./location-select.page.scss'],
 })
-export class NewTransferPage implements OnInit {
+export class LocationSelectPage implements OnInit {
   locationOption
   myCurrentLocation: Geoposition
   myBranchOffices: Branch[]
@@ -73,7 +73,7 @@ export class NewTransferPage implements OnInit {
     private dialogs: Dialogs,
     private branchService: BranchOfficeService,
     private activeRoute: ActivatedRoute,
-    private router: Router,
+    private navCtrl: NavController,
     public atrCtrl: AlertController,
     public loadingController: LoadingController,
     private navParamService: NavParamService
@@ -339,7 +339,7 @@ export class NewTransferPage implements OnInit {
   }
 
   continue() {
-    this.router.navigate(['category-select'])
+    this.navCtrl.navigateForward('category-select')
   }
 
   calculatedistanceBefore() {
@@ -392,7 +392,7 @@ export class NewTransferPage implements OnInit {
     }
     
     this.navParamService.setData(data)
-    this.router.navigate(['category-select', this.title])
+    this.navCtrl.navigateForward('category-select/'+ this.title )
   }
 
 }

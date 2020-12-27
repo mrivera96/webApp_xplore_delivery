@@ -73,6 +73,22 @@ if (isset($_GET['function'])) {
 
         $output = curl_exec($handle);
         curl_close($handle);
+    } else if ($func == 'sendSMS') {
+
+        $handle = curl_init();
+        $numTel = $_GET["telefono"];
+        $sms = $_GET["sms"];
+
+        $url = "http://190.4.56.14/GoogleApi/send-sms.php?telefono=".$numTel."&mensaje=".str_replace(" ", '%20', $sms);
+
+        // Set the url
+		//curl_setopt($handle, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($handle, CURLOPT_URL, $url);
+               
+        /* set return type json */
+
+        $output = curl_exec($handle);
+        curl_close($handle);
     }
 } else if (file_get_contents('php://input')) {
     $rest_json = file_get_contents("php://input");
@@ -171,7 +187,30 @@ if (isset($_GET['function'])) {
         $output = curl_exec($handle);
 
         curl_close($handle);
-    } else if ($_POST['function'] == 'assignDelivery') {
+    }else if ($_POST['function'] == 'numberLogin') {
+        $post = file_get_contents('php://input');
+        $array = json_decode($post);
+
+        $handle = curl_init();
+
+        //$url = "http://190.4.56.14/XploreDeliveryAPI/api/auth/login";
+        $url = "http://190.4.56.14/" . $environment . "/api/auth/numberLogin";
+
+        // Set the url
+        curl_setopt($handle, CURLOPT_URL, $url);
+        curl_setopt($handle, CURLOPT_POST, TRUE);
+        curl_setopt($handle, CURLOPT_POSTFIELDS, $post);
+        /* set the content type json */
+        curl_setopt($handle, CURLOPT_HTTPHEADER, array('Content-Type:application/json', 'Accept:application/json'));
+
+        /* set return type json */
+        //curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+
+        $output = curl_exec($handle);
+
+        curl_close($handle);
+    } 
+    else if ($_POST['function'] == 'assignDelivery') {
         $post = file_get_contents('php://input');
         $array = json_decode($post);
 
@@ -1940,7 +1979,7 @@ if (isset($_GET['function'])) {
 
         $output = curl_exec($handle);
         curl_close($handle);
-    }else if ($_POST['function'] == 'getReportRequests') {
+    } else if ($_POST['function'] == 'getReportRequests') {
         $post = file_get_contents('php://input');
         $array = json_decode($post);
 
@@ -1960,7 +1999,7 @@ if (isset($_GET['function'])) {
 
         $output = curl_exec($handle);
         curl_close($handle);
-    }else if ($_POST['function'] == 'createReportRequest') {
+    } else if ($_POST['function'] == 'createReportRequest') {
         $post = file_get_contents('php://input');
         $array = json_decode($post);
 
@@ -2000,7 +2039,7 @@ if (isset($_GET['function'])) {
 
         $output = curl_exec($handle);
         curl_close($handle);
-    }else if ($_POST['function'] == 'checkAvalability') {
+    } else if ($_POST['function'] == 'checkAvalability') {
         $post = file_get_contents('php://input');
         $array = json_decode($post);
 
@@ -2020,7 +2059,7 @@ if (isset($_GET['function'])) {
 
         $output = curl_exec($handle);
         curl_close($handle);
-    }else if ($_POST['function'] == 'checkCustomerDelTypes') {
+    } else if ($_POST['function'] == 'checkCustomerDelTypes') {
         $post = file_get_contents('php://input');
         $array = json_decode($post);
 
@@ -2040,7 +2079,7 @@ if (isset($_GET['function'])) {
 
         $output = curl_exec($handle);
         curl_close($handle);
-    }else if ($_POST['function'] == 'getCategoryExtraCharges') {
+    } else if ($_POST['function'] == 'getCategoryExtraCharges') {
         $post = file_get_contents('php://input');
         $array = json_decode($post);
 
@@ -2060,7 +2099,7 @@ if (isset($_GET['function'])) {
 
         $output = curl_exec($handle);
         curl_close($handle);
-    }else if ($_POST['function'] == 'verifyMail') {
+    } else if ($_POST['function'] == 'verifyMail') {
         $post = file_get_contents('php://input');
         $array = json_decode($post);
 
@@ -2078,14 +2117,33 @@ if (isset($_GET['function'])) {
 
         $output = curl_exec($handle);
         curl_close($handle);
-    }else if ($_POST['function'] == 'insertTraslate') {
+    } else if ($_POST['function'] == 'verifyNumber') {
+        $post = file_get_contents('php://input');
+        $array = json_decode($post);
+
+        $handle = curl_init();
+
+        $url = "http://190.4.56.14/" . $environment . "/api/auth/verifyNumber";
+
+        // Set the url
+        curl_setopt($handle, CURLOPT_URL, $url);
+
+        curl_setopt($handle, CURLOPT_POST, TRUE);
+        curl_setopt($handle, CURLOPT_POSTFIELDS, $post);
+        curl_setopt($handle, CURLOPT_HTTPHEADER, array('Content-Type:application/json', 'Accept:application/json'));
+        /* set return type json */
+
+        $output = curl_exec($handle);
+        curl_close($handle);
+    }
+     else if ($_POST['function'] == 'insertTraslate') {
         $post = file_get_contents('php://input');
         $array = json_decode($post);
 
         $handle = curl_init();
 
         $url = "http://190.4.56.14/" . $environment . "/api/appDelivery/createTraslate";
-		$authorization = 'Authorization: Bearer ' . $_POST['tkn'];
+        $authorization = 'Authorization: Bearer ' . $_POST['tkn'];
 
         // Set the url
         curl_setopt($handle, CURLOPT_URL, $url);
@@ -2097,14 +2155,14 @@ if (isset($_GET['function'])) {
 
         $output = curl_exec($handle);
         curl_close($handle);
-    }else if ($_POST['function'] == 'createDelivery') {
+    } else if ($_POST['function'] == 'createDelivery') {
         $post = file_get_contents('php://input');
         $array = json_decode($post);
 
         $handle = curl_init();
 
         $url = "http://190.4.56.14/" . $environment . "/api/appDelivery/createDelivery";
-		$authorization = 'Authorization: Bearer ' . $_POST['tkn'];
+        $authorization = 'Authorization: Bearer ' . $_POST['tkn'];
 
         // Set the url
         curl_setopt($handle, CURLOPT_URL, $url);
@@ -2112,6 +2170,81 @@ if (isset($_GET['function'])) {
         curl_setopt($handle, CURLOPT_POST, TRUE);
         curl_setopt($handle, CURLOPT_POSTFIELDS, $post);
         curl_setopt($handle, CURLOPT_HTTPHEADER, array('Content-Type:application/json', 'Accept:application/json', $authorization));
+        /* set return type json */
+
+        $output = curl_exec($handle);
+        curl_close($handle);
+    } else if ($_POST['function'] == 'updateCustomerData') {
+        $post = file_get_contents('php://input');
+        $array = json_decode($post);
+
+        $handle = curl_init();
+
+        $url = "http://190.4.56.14/" . $environment . "/api/appDelivery/updateCustomerData";
+        $authorization = 'Authorization: Bearer ' . $_POST['tkn'];
+
+        // Set the url
+        curl_setopt($handle, CURLOPT_URL, $url);
+
+        curl_setopt($handle, CURLOPT_POST, TRUE);
+        curl_setopt($handle, CURLOPT_POSTFIELDS, $post);
+        curl_setopt($handle, CURLOPT_HTTPHEADER, array('Content-Type:application/json', 'Accept:application/json', $authorization));
+        /* set return type json */
+
+        $output = curl_exec($handle);
+        curl_close($handle);
+    }else if ($_POST['function'] == 'getPendingCustomerDeliveries') {
+        $post = file_get_contents('php://input');
+        $array = json_decode($post);
+
+        $handle = curl_init();
+
+        $url = "http://190.4.56.14/" . $environment . "/api/appDelivery/getPendingCustomerDeliveries";
+        $authorization = 'Authorization: Bearer ' . $_POST['tkn'];
+
+        // Set the url
+        curl_setopt($handle, CURLOPT_URL, $url);
+
+        curl_setopt($handle, CURLOPT_POST, TRUE);
+        curl_setopt($handle, CURLOPT_POSTFIELDS, $post);
+        curl_setopt($handle, CURLOPT_HTTPHEADER, array('Content-Type:application/json', 'Accept:application/json', $authorization));
+        /* set return type json */
+
+        $output = curl_exec($handle);
+        curl_close($handle);
+    }else if ($_POST['function'] == 'getCustomerPaymentMethods') {
+        $post = file_get_contents('php://input');
+        $array = json_decode($post);
+
+        $handle = curl_init();
+
+        $url = "http://190.4.56.14/" . $environment . "/api/customers/paymentMethods/get";
+        $authorization = 'Authorization: Bearer ' . $_POST['tkn'];
+
+        // Set the url
+        curl_setopt($handle, CURLOPT_URL, $url);
+
+        curl_setopt($handle, CURLOPT_POST, TRUE);
+        curl_setopt($handle, CURLOPT_POSTFIELDS, $post);
+        curl_setopt($handle, CURLOPT_HTTPHEADER, array('Content-Type:application/json', 'Accept:application/json', $authorization));
+        /* set return type json */
+
+        $output = curl_exec($handle);
+        curl_close($handle);
+    }else if ($_POST['function'] == 'signUp') {
+        $post = file_get_contents('php://input');
+        $array = json_decode($post);
+
+        $handle = curl_init();
+
+        $url = "http://190.4.56.14/" . $environment . "/api/auth/signUp";
+
+        // Set the url
+        curl_setopt($handle, CURLOPT_URL, $url);
+
+        curl_setopt($handle, CURLOPT_POST, TRUE);
+        curl_setopt($handle, CURLOPT_POSTFIELDS, $post);
+        curl_setopt($handle, CURLOPT_HTTPHEADER, array('Content-Type:application/json', 'Accept:application/json'));
         /* set return type json */
 
         $output = curl_exec($handle);

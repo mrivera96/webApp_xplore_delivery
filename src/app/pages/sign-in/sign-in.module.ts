@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
-import { SignInModalPageRoutingModule } from './sign-in-modal-routing.module';
+import { SignInModalPageRoutingModule } from './sign-in-routing.module';
 
-import { SignInModalPage } from './sign-in-modal.page';
+import { SignInPage } from './sign-in.page';
 import { Dialogs } from '@ionic-native/dialogs/ngx';
 import { SharedModule } from 'src/app/shared/shared.module';
 @NgModule({
@@ -18,6 +18,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     SharedModule
   ],
   providers:[Dialogs],
-  declarations: [SignInModalPage]
+  declarations: [SignInPage]
 })
 export class SignInModalPageModule {}

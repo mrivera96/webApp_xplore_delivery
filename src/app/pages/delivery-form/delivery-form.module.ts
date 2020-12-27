@@ -4,9 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AdditionalFormPageRoutingModule } from './additional-form-routing.module';
+import { AdditionalFormPageRoutingModule } from './delivery-form-routing.module';
 
-import { AdditionalFormPage } from './additional-form.page';
+import { DeliveryFormPage } from './delivery-form.page';
 import { Dialogs } from '@ionic-native/dialogs/ngx';
 
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -20,7 +20,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     AdditionalFormPageRoutingModule,
     SharedModule
   ],
-  declarations: [AdditionalFormPage,],
+  declarations: [DeliveryFormPage,],
   providers:[Dialogs],
 })
 export class AdditionalFormPageModule {}

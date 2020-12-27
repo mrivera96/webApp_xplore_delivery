@@ -8,7 +8,7 @@ export interface Customer {
     isActivo?: boolean
     subtotal?: number
     paid?: number
-    diasGracia?: number
+    montoGracia?: number
     balance?: number
     /* payments?: Payment[]
     deliveries?: Delivery[] */

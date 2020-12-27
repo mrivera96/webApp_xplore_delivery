@@ -9,11 +9,18 @@
 
 <ion-content>
   <ion-list lines="full">
-    <ion-item *ngFor="let address of myAddresses" (click)="editAddress(address)">
+    <ion-item button *ngFor="let address of myAddresses" (click)="editAddress(address)">
       <ion-label>
         <h2>{{address.nomSucursal}}</h2>
         <h3>{{address.direccion}}</h3>
         <p>{{address.numTelefono}}</p>
+      </ion-label>
+      <ion-icon slot="start" color="xplrsecond" name="location-outline"></ion-icon>
+    </ion-item>
+
+    <ion-item  *ngIf="myAddresses.length == 0">
+      <ion-label>
+        <h2>No hay registros para mostrar</h2>
       </ion-label>
       <ion-icon slot="start" color="xplrsecond" name="location-outline"></ion-icon>
     </ion-item>

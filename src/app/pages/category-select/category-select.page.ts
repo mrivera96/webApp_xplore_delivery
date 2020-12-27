@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Dialogs } from '@ionic-native/dialogs/ngx';
-import { AlertController, LoadingController } from '@ionic/angular';
+import {AlertController, LoadingController, NavController} from '@ionic/angular';
 import { Category } from 'src/app/models/category';
 import { ExtraCharge } from 'src/app/models/extra-charge';
 import { Rate } from 'src/app/models/rate';
@@ -47,7 +47,7 @@ export class CategorySelectPage implements OnInit {
     private ratesService: RatesService,
     public loadingController: LoadingController,
     private navParamService: NavParamService,
-    private router: Router,
+    private navCtrl: NavController,
     private deliveriesService: DeliveriesService,
     public atrCtrl: AlertController
   ) {
@@ -134,7 +134,7 @@ export class CategorySelectPage implements OnInit {
     this.data.category = this.selectedCategory
     this.data.payment = this.orderPayment
     this.navParamService.setData(this.data)
-    this.router.navigate(['additional-form']) 
+    this.navCtrl.navigateForward('delivery-form')
 
   }
 
@@ -148,8 +148,6 @@ export class CategorySelectPage implements OnInit {
         delSubscription.unsubscribe()
         this.loadingController.dismiss()
         this.openSuccessTraslate(response.message,response.nDelivery)
-        /* this.navParamService.setData(response.data)
-        this.router.navigate(['finish-traslate']) */
       })
   }
 
@@ -163,7 +161,8 @@ export class CategorySelectPage implements OnInit {
     await alert.present();
 
     alert.onDidDismiss().then(() => {
-      this.router.navigate(['reservation-details',id])
+      this.navCtrl.navigateForward('reservation-details/'+id)
+
     })
   }
 

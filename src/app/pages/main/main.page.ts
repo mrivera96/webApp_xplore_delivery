@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GoogleMap, GoogleMaps, GoogleMapsAnimation, GoogleMapsEvent, Marker, MyLocation } from '@ionic-native/google-maps';
-import { Platform } from '@ionic/angular';
+import {NavController, Platform} from '@ionic/angular';
 import { Customer } from 'src/app/models/customer';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -16,7 +16,7 @@ export class MainPage implements OnInit {
   constructor(
     private platform: Platform,
     private authService: AuthService,
-    private router: Router
+    private navCtrl: NavController
   ) { 
     this.platform.backButton.subscribeWithPriority(10, () => {
       
@@ -98,7 +98,7 @@ export class MainPage implements OnInit {
 
   onLogOut(){
     this.authService.logout().subscribe(data => {
-      this.router.navigate(['login'])
+      this.navCtrl.navigateRoot('login')
     })
     
   }

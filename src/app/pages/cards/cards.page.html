@@ -25,11 +25,19 @@
   </ion-list> -->
 
   <ion-list lines="full">
-    <ion-item >
+    <ion-item *ngFor="let card of myCards" >
       <ion-label>
-        <h2>[[Número de Tarjeta]]</h2>
+        <h2>{{card.token_card}}</h2>
         <h3>[[Tipo de Tarjeta]]</h3>
-        <p>[[vencimiento]]</p>
+        <p>{{card.mes}}/{{card.anio}}</p>
+      </ion-label>
+      <fa-icon style="color: #f9813a;"  slot="start" icon="credit-card"
+         ></fa-icon>
+    </ion-item>
+
+    <ion-item *ngIf="myCards.length == 0">
+      <ion-label>
+        <h2>No hay registros para mostrar</h2>
       </ion-label>
       <fa-icon style="color: #f9813a;"  slot="start" icon="credit-card"
          ></fa-icon>

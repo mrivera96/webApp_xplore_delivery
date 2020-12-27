@@ -1,5 +1,5 @@
 <ion-header >
-  <ion-toolbar>
+  <ion-toolbar color="xplore">
     <ion-title>Iniciar Sesión</ion-title>
     <ion-buttons slot="end" >
       <ion-button (click)="dismissModal()">
@@ -21,10 +21,9 @@
     <ion-col size="12">
       <form [formGroup]="signInForm">
         <ion-list lines="full">
-
-          <ion-item>
+          <ion-item *ngIf="!mailLogin">
             <ion-label color="default" position="floating">Ingresa tu número de teléfono:</ion-label>
-            <ion-input required appPhoneMask type="tel" inputmode="tel" formControlName="numTelefono" 
+            <ion-input [required]="!mailLogin" appPhoneMask type="tel" inputmode="tel" formControlName="numTelefono" 
             minlength="9" placeholder="ej. 9999-9999" maxlength="9" [readonly]="verifiedNumber">
             </ion-input>
             <ion-icon color="xplrsecond" slot="start" name="call-outline"></ion-icon>
@@ -42,7 +41,8 @@
 
           <ion-item *ngIf="mailLogin">
             <ion-label color="default" position="floating">Ingresa tu correo electrónico:</ion-label>
-            <ion-input required maxlength="50" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" type="text" formControlName="email" [readonly]="verifiedEmail">
+            <ion-input [required]="mailLogin" maxlength="50" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" type="text" 
+            formControlName="email" [readonly]="verifiedEmail" placeholder="ejemplo@mail.com">
             </ion-input>
             <ion-icon color="xplrsecond" slot="start" name="mail-outline"></ion-icon>
           </ion-item>
@@ -70,11 +70,17 @@
     </ion-col>
   </ion-row>
 
+  <ion-row>
+    <ion-col size="12" *ngIf="!mailLogin">
+      <a (click)="changeMailLogin()">Intentar con mi e-mail</a>
+    </ion-col>
+  </ion-row>
+
   <br>
   <ion-row>
     <ion-col class="ion-text-center">
       <ion-button (click)="verifyNumber()" color="xplore" type="button" expand="block" fill="outline" 
-      shape="round" *ngIf="!verifiedNumber" [disabled]="controls.numTelefono.invalid">
+      shape="round" *ngIf="!verifiedNumber && !mailLogin" [disabled]="controls.numTelefono.invalid">
         Continuar
       </ion-button>
       <ion-button  (click)="verifyMail()" color="xplore" type="button" expand="block" fill="outline" 

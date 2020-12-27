@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 
-import { MenuController, Platform } from '@ionic/angular';
+import {MenuController, NavController, Platform} from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { User } from './models/user';
 import { Customer } from './models/customer';
+import { NavParamService } from './services/nav-param.service';
 
 @Component({
   selector: 'app-root',
@@ -21,10 +22,15 @@ export class AppComponent {
     private statusBar: StatusBar,
     private router: Router,
     public menuCtrl: MenuController, 
-    private authService: AuthService
+    private authService: AuthService,
+    public navCtrl: NavController,
+    
   ) {
     this.initializeApp();
-    this.currentUser = this.authService.currentUserValue.cliente
+    if(authService.currentUser){
+      this.currentUser = this.authService.currentUserValue?.cliente
+    }
+
   }
 
   initializeApp() {
@@ -35,6 +41,16 @@ export class AppComponent {
 
   go(route){
     this.menuCtrl.toggle()
-    this.router.navigate([route])
+    this.navCtrl.navigateForward(route)
   }
+
+  onLogOut(){
+    this.menuCtrl.toggle()
+    this.authService.logout().subscribe(data => {
+      this.navCtrl.navigateRoot('login')
+    })
+    
+  }
+
+  
 }

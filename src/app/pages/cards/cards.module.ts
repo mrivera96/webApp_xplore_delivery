@@ -8,6 +8,7 @@ import { CardsPageRoutingModule } from './cards-routing.module';
 
 import { CardsPage } from './cards.page';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { Dialogs } from '@ionic-native/dialogs/ngx';
 
 @NgModule({
   imports: [
@@ -15,8 +16,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FormsModule,
     IonicModule,
     CardsPageRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
-  declarations: [CardsPage]
+  declarations: [CardsPage],
+  providers:[Dialogs]
 })
 export class CardsPageModule {}

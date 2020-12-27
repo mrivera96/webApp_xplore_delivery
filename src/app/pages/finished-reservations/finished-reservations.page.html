@@ -23,5 +23,14 @@
         <p> Estado: {{delivery.estado.descEstado}}</p>
       </ion-label>
     </ion-item>
+
+    <ion-item *ngIf="myReservations.length == 0">
+      <ion-icon slot="start" color="xplrsecond" name="checkmark-circle-outline">
+      </ion-icon>
+    
+      <ion-label>
+        <h2>No hay registros para mostrar</h2>
+      </ion-label>
+    </ion-item>
   </ion-list>
 </ion-content>

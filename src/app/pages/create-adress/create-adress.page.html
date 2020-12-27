@@ -1,9 +1,82 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>create-adress</ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="xplore">
+        <ion-buttons slot="start">
+            <ion-back-button defaulHref="main" routerLink="/my-addresses">
+            </ion-back-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center">Nueva Dirección</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <form [formGroup]="nAddressForm">
+        <ion-list lines="full">
+            <ion-item>
+                <ion-label color="default" position="floating">Nombre de Dirección:</ion-label>
+                <ion-input type="text" formControlName="nomSucursal" required
+                           placeholder="Nombre de la Dirección" maxlength="80"></ion-input>
+                <ion-icon color="xplrsecond" slot="start" name="business-outline"></ion-icon>
+            </ion-item>
+            <span class="error-message"
+                  *ngIf="controls.nomSucursal.hasError('required') && controls.nomSucursal.touched">
+              *Este campo es obligatorio
+            </span>
 
+            <ion-item>
+                <ion-label color="default" position="floating">Número de Teléfono (Opcional):</ion-label>
+                <ion-input type="tel" formControlName="numTelefono" autocomplete="nope"
+                           appPhoneMask placeholder="Ej. 9999-9999(Guión Automático)" minlength="9"
+                           maxlength="9"></ion-input>
+                <ion-icon color="xplrsecond" slot="start" name="call-outline"></ion-icon>
+            </ion-item>
+            <span class="error-message"
+                  *ngIf="controls.numTelefono.hasError('maxlength') && controls.numTelefono.touched">
+              *Por favor ingrese un número válido
+            </span>
+            <span class="error-message"
+                  *ngIf="controls.numTelefono.hasError('minlength') && controls.numTelefono.touched">
+              *Por favor ingrese un número válido
+            </span>
+
+            <ion-item>
+                <ion-label color="default" position="floating">Direccion:</ion-label>
+                <ion-input (ionInput)="UpdateSearchResults()" placeholder="Buscar un lugar" formControlName="direccion"
+                           (ionClear)="ClearAutocomplete()" required maxlength="100" type="text">
+                </ion-input>
+                <ion-icon color="xplrsecond" slot="start" name="location-outline"></ion-icon>
+            </ion-item>
+
+            <ion-list [hidden]="autocompleteItems.length == 0">
+                <ion-item *ngFor="let item of autocompleteItems" tappable (click)="SelectSearchResult(item)">
+                    {{ item.description }}
+                </ion-item>
+            </ion-list>
+
+
+            <!--            <mat-form-field appearance="outline" floatLabel="always">-->
+            <!--                <mat-label>Instrucciones de Recogida:</mat-label>-->
+            <!--                <textarea matInput id="instGenerales" formControlName="instrucciones" class="form-control"-->
+            <!--                          maxlength="150"-->
+            <!--                          placeholder="¿Necesitamos instrucciones para la recogida de tus envíos en esta dirección?">-->
+            <!--                </textarea>-->
+            <!--                <mat-icon matPrefix>assignment</mat-icon>-->
+            <!--                <mat-error>*Excede la longitud máxima permitida</mat-error>-->
+            <!--            </mat-form-field>-->
+
+
+            <ion-item>
+                <ion-label color="default">Dirección Predeterminada</ion-label>
+                <ion-toggle color="xplrsecond" formControlName="isDefault">Dirección Predeterminada</ion-toggle>
+            </ion-item>
+
+        </ion-list>
+
+    </form>
+    <br>
+    <br>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button type="button" (click)="save()" [disabled]="nAddressForm.invalid" color="xplrsecond">
+            <ion-icon name="save-outline"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>

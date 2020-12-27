@@ -9,10 +9,10 @@ import {NavParamService} from 'src/app/services/nav-param.service';
 
 @Component({
     selector: 'app-additional-form',
-    templateUrl: './additional-form.page.html',
-    styleUrls: ['./additional-form.page.scss'],
+    templateUrl: './delivery-form.page.html',
+    styleUrls: ['./delivery-form.page.scss'],
 })
-export class AdditionalFormPage implements OnInit {
+export class DeliveryFormPage implements OnInit {
     nDeliveryForm: FormGroup;
     selectedCategory: Category;
     data: any;

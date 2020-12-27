@@ -7,10 +7,10 @@ import { Dialogs } from '@ionic-native/dialogs/ngx';
 
 @Component({
   selector: 'app-sign-in-modal',
-  templateUrl: './sign-in-modal.page.html',
-  styleUrls: ['./sign-in-modal.page.scss'],
+  templateUrl: './sign-in.page.html',
+  styleUrls: ['./sign-in.page.scss'],
 })
-export class SignInModalPage implements OnInit {
+export class SignInPage implements OnInit {
   verifiedEmail = false
   verifiedNumber = false
   loaders = {
@@ -37,10 +37,7 @@ export class SignInModalPage implements OnInit {
   initialize() {
     this.signInForm = this.formBuilder.group({
       numTelefono:['', Validators.required],
-      email: ['', [
-        // Validators.required,
-        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"),
-        Validators.maxLength(50)]],
+      email: ['', []],
       password: [
         '', [Validators.required]
       ]
@@ -93,6 +90,14 @@ export class SignInModalPage implements OnInit {
       })
   }
 
+  changeMailLogin(){
+    this.mailLogin = true
+    this.controls.numTelefono.setErrors(null)
+    this.controls.numTelefono.setValidators(null)
+    this.controls.email.setValidators([Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"),
+    Validators.maxLength(50)])
+  }
+
   onFormSubmit() {
     //this.router.navigate(['main'])
     this.presentLoading()
@@ -121,10 +126,12 @@ export class SignInModalPage implements OnInit {
           const user = response.user;
           localStorage.setItem('currentUserManagement', JSON.stringify(user));
           this.authService.setCurrUser(user)
+          this.loadingController.dismiss()
           authSubscription.unsubscribe()
           this.navCtrl.navigateForward('main')
         }, error => {
           error.subscribe(error => {
+            this.loadingController.dismiss()
             this.openErrorDialog(error.statusText)
             this.loaders.loadingSubmit = false
             authSubscription.unsubscribe()

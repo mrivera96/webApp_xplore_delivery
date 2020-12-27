@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { SignInModalPage } from './sign-in-modal.page';
+import { SignInPage } from './sign-in.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: SignInModalPage
+    component: SignInPage
   }
 ];
 

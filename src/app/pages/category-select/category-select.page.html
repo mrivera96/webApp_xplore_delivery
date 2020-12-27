@@ -10,7 +10,7 @@
 
 <ion-content>
 
-  <ion-list>
+  <ion-list lines="full">
     <ion-radio-group [(ngModel)]="selectedCategory" (ngModelChange)="setSelectedCategory()">
       <ion-list-header>
         <ion-label>Categoría a reservar</ion-label>
@@ -27,13 +27,17 @@
         </fa-icon>
         <fa-icon style="color: #f9813a;" slot="start" icon="truck" *ngIf="category.idCategoria == 8"></fa-icon>
         <fa-icon style="color: #f9813a;" slot="start" icon="heart" *ngIf="category.idCategoria == 9"></fa-icon>
-        <ion-label> {{'  '+category.descCategoria}}</ion-label>
+        <ion-label> 
+          <h2>{{'  '+category.descCategoria}}</h2>
+          <h3>{{category.descripcion}}</h3>
+          
+        </ion-label>
         <ion-radio slot="end" [value]="category"></ion-radio>
       </ion-item>
     </ion-radio-group>
   </ion-list>
 
-  <ion-list *ngIf="title == 'Traslado'">
+  <ion-list lines="full" *ngIf="title == 'Traslado'">
     <ion-list-header>
       <ion-label>Detalles de Pago</ion-label>
     </ion-list-header>
@@ -68,13 +72,13 @@
   <br>
 
   <ion-fab *ngIf="title === 'Delivery'" vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button type="button" [disabled]="!selectedCategory" color="xplrsecond" (click)="next()">
+    <ion-fab-button type="button" [disabled]="!selectedCategory.descCategoria" color="xplrsecond" (click)="next()">
       <ion-icon name="checkmark-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
   <ion-fab *ngIf="title === 'Traslado'" vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button type="button" [disabled]="!selectedCategory" color="xplrsecond" (click)="openConfirmTraslate()">
+    <ion-fab-button type="button" [disabled]="!selectedCategory.descCategoria" color="xplrsecond" (click)="openConfirmTraslate()">
       <ion-icon name="save-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>

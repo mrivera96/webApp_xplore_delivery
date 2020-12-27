@@ -25,6 +25,10 @@ export class AuthService {
     return this.http.post<any>(`${environment.apiUrl}`, {function:'login',nickname, password})
   }
 
+  numberLogin(number: string, password: string) {
+    return this.http.post<any>(`${environment.apiUrl}`, {function:'numberLogin',number, password})
+  }
+
   passwordRecovery(form) {
     return this.http.post<any>(`${environment.apiUrl}`, {
       function:'passwordRecovery',
@@ -48,6 +52,20 @@ export class AuthService {
     return this.http.post<any>(`${environment.apiUrl}`, {
       function:'verifyMail',
       mail
+    })
+  }
+
+  verifyNumber(number){
+    return this.http.post<any>(`${environment.apiUrl}`, {
+      function:'verifyNumber',
+      number
+    })
+  }
+
+  signUp(form){
+    return this.http.post<any>(`${environment.apiUrl}`, {
+      function:'signUp',
+      form
     })
   }
 }

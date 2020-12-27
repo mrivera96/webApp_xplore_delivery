@@ -14,7 +14,8 @@ import { Dialogs } from '@ionic-native/dialogs/ngx';
     CommonModule,
     FormsModule,
     IonicModule,
-    MyReservationsPageRoutingModule
+    MyReservationsPageRoutingModule,
+  
   ],
   providers:[Dialogs],
   declarations: [MyReservationsPage]

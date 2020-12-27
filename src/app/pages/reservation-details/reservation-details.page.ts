@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Dialogs } from '@ionic-native/dialogs/ngx';
 import { LoadingController } from '@ionic/angular';
 import { Delivery } from 'src/app/models/delivery';
+import { User } from 'src/app/models/user';
 import { DeliveriesService } from 'src/app/services/deliveries.service';
 
 @Component({
@@ -13,6 +14,7 @@ import { DeliveriesService } from 'src/app/services/deliveries.service';
 export class ReservationDetailsPage implements OnInit {
   deliveryId: number
   delivery: Delivery = {}
+  driver: User = {}
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -34,6 +36,15 @@ export class ReservationDetailsPage implements OnInit {
     const delSubsc = this.deliveriesService
       .getById(this.deliveryId).subscribe(response => {
         this.delivery = response.data
+        this.delivery.detalle.forEach(detail => {
+          if(detail.idConductor != null){
+            this.driver = detail.conductor
+          }
+        })
+        if(this.driver.nomUsuario){
+          this.driver.nomUsuario = this.driver.nomUsuario.split(' ', 2)[0] +' '+ this.driver.nomUsuario.split(' ', 2)[1]
+        }
+        
         this.loadingController.dismiss();
         delSubsc.unsubscribe()
       }, error => {

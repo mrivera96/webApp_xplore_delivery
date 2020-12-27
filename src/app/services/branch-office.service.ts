@@ -28,4 +28,11 @@ export class BranchOfficeService {
       tkn: this.authService.currentUserValue.access_token})
   }
 
+  newBranch(form){
+    return this.http.post<any>(`${environment.apiUrl}`, {
+      function: 'newBranch',
+      form,
+      tkn: this.authService.currentUserValue.access_token})
+  }
+
 }

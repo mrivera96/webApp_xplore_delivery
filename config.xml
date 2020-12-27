@@ -14,10 +14,10 @@
     <preference name="ScrollEnabled" value="false" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashMaintainAspectRatio" value="true" />
-    <preference name="FadeSplashScreenDuration" value="300" />
+    <preference name="FadeSplashScreenDuration" value="0" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
-    <preference name="SplashScreen" value="assets/img/DELIVERY-fullcolor.png" />
-    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="SplashScreen" value="none" />
+    <preference name="SplashScreenDelay" value="0" />
     <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyD0QIqVa1DFFvD8dcYyvHmHRx71bBc09U0" />
     <preference name="GOOGLE_MAPS_IOS_API_KEY" value="AIzaSyD0QIqVa1DFFvD8dcYyvHmHRx71bBc09U0" />
     <platform name="android">
@@ -97,7 +97,6 @@
     <plugin name="cordova-plugin-whitelist" spec="1.3.3" />
     <plugin name="cordova-plugin-statusbar" spec="2.4.2" />
     <plugin name="cordova-plugin-device" spec="2.0.2" />
-    <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
 </widget>
