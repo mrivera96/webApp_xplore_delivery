@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="xplore">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="true"></ion-menu-button> 
+    </ion-buttons>
+    <ion-title class="ion-text-center">Mis Direcciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="full">
+    <ion-item *ngFor="let address of myAddresses" (click)="editAddress(address)">
+      <ion-label>
+        <h2>{{address.nomSucursal}}</h2>
+        <h3>{{address.direccion}}</h3>
+        <p>{{address.numTelefono}}</p>
+      </ion-label>
+      <ion-icon slot="start" color="xplrsecond" name="location-outline"></ion-icon>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button type="button" color="xplrsecond" routerLink="/create-adress">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

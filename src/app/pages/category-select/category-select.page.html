@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar color="xplore">
+    <ion-buttons slot="start">
+      <ion-back-button defaulHref="main">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Nuevo {{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-radio-group [(ngModel)]="selectedCategory" (ngModelChange)="setSelectedCategory()">
+      <ion-list-header>
+        <ion-label>Categoría a reservar</ion-label>
+      </ion-list-header>
+
+      <ion-item *ngFor="let category of myCategories">
+        <fa-icon style="color: #f9813a;"  slot="start" icon="car"
+          *ngIf="category.idCategoria == 1 || category.idCategoria == 7"></fa-icon>
+        <fa-icon style="color: #f9813a;" slot="start" icon="motorcycle" *ngIf="category.idCategoria == 6"></fa-icon>
+        <fa-icon style="color: #f9813a;" slot="start" icon="bus"
+          *ngIf="category.idCategoria == 3 || category.idCategoria == 5"></fa-icon>
+        <fa-icon style="color: #f9813a;" slot="start" icon="truck-pickup"
+          *ngIf="category.idCategoria == 2 || category.idCategoria == 4">
+        </fa-icon>
+        <fa-icon style="color: #f9813a;" slot="start" icon="truck" *ngIf="category.idCategoria == 8"></fa-icon>
+        <fa-icon style="color: #f9813a;" slot="start" icon="heart" *ngIf="category.idCategoria == 9"></fa-icon>
+        <ion-label> {{'  '+category.descCategoria}}</ion-label>
+        <ion-radio slot="end" [value]="category"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+  <ion-list *ngIf="title == 'Traslado'">
+    <ion-list-header>
+      <ion-label>Detalles de Pago</ion-label>
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label>Tarifa Base: L. {{orderPayment.baseRate}}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Recargo Por Distancia: L. {{orderPayment.surcharges}}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Total: L. {{orderPayment.total}} </ion-label>
+    </ion-item>
+  </ion-list>
+
+  
+
+
+  <!-- <ion-list *ngIf="title == 'Delivery'">
+    <ion-list-header>
+      <ion-label>Fecha y Hora de {{title}}</ion-label>
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label position="floating">Fecha y hora:</ion-label>
+      <ion-datetime display-format="DD/MM/YYYY HH:mm" min=""></ion-datetime>
+    </ion-item>
+  </ion-list> -->
+  <br>
+  <br>
+
+  <ion-fab *ngIf="title === 'Delivery'" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button type="button" [disabled]="!selectedCategory" color="xplrsecond" (click)="next()">
+      <ion-icon name="checkmark-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab *ngIf="title === 'Traslado'" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button type="button" [disabled]="!selectedCategory" color="xplrsecond" (click)="openConfirmTraslate()">
+      <ion-icon name="save-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

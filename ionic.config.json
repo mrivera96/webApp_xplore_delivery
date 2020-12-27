@@ -1,5 +1,7 @@
 {
   "name": "xploreDeliveryWA",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

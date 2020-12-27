@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="xplore">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="true"></ion-menu-button> 
+    </ion-buttons>
+    <ion-title class="ion-text-center">Métodos de Pago</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <ion-list lines="full">
+    <ion-item *ngFor="let delivery of myReservations" routerLink="/reservation-details/{{delivery.idDelivery}}">
+      <ion-avatar slot="start">
+        <ion-icon color="xplrsecond" *ngIf="delivery.idEstado == 37 || delivery.idEstado == 38 " name="speedometer-outline"></ion-icon>
+        <ion-icon color="xplrsecond" *ngIf="delivery.idEstado == 34" name="reader-outline"></ion-icon>
+        <ion-icon color="xplrsecond" *ngIf="delivery.idEstado == 39" name="checkmark-circle-outline"></ion-icon>
+        <ion-icon color="xplrsecond" *ngIf="delivery.idEstado == 36" name="ban-outline"></ion-icon>
+      </ion-avatar>
+      <ion-label>
+        <h2>No. Reserva {{delivery.idDelivery}}</h2>
+        <h3>{{delivery.fechaReserva}}</h3>
+        <p> Estado de Reserva: {{delivery.estado.descEstado}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list> -->
+
+  <ion-list lines="full">
+    <ion-item >
+      <ion-label>
+        <h2>[[Número de Tarjeta]]</h2>
+        <h3>[[Tipo de Tarjeta]]</h3>
+        <p>[[vencimiento]]</p>
+      </ion-label>
+      <fa-icon style="color: #f9813a;"  slot="start" icon="credit-card"
+         ></fa-icon>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button type="button" color="xplrsecond" routerLink="/create-card">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

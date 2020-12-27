@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar color="xplore">
+    <ion-buttons slot="start">
+      <ion-back-button defaulHref="main" routerLink="/my-reservations">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Detalles de Reserva</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>{{delivery.fechaReserva}}</ion-card-subtitle>
+      <ion-card-title>Reserva No. {{ delivery.idDelivery}}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-row>
+        <ion-col size="12">
+          <strong>Estado: </strong>{{delivery?.estado?.descEstado}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12">
+          <strong>Dirección de recogida:</strong>
+          <a href="https://www.google.com/maps?q={{delivery?.dirRecogida}}"> {{delivery?.dirRecogida}} </a>
+        </ion-col>
+        <ion-col size="12">
+          <strong>Instrucciones de recogida:</strong>
+          {{delivery?.instrucciones}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12">
+          <strong>Categoría reservada:</strong>
+          {{delivery?.category?.descCategoria}}
+        </ion-col>
+        <ion-col *ngIf="delivery.idEstado == 37" size="6">
+
+          <strong>Asignada a:</strong>
+          {{delivery?.detalle[0]?.conductor.nomUsuario}}
+
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12"></ion-col>
+        <ion-col size="12"></ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12">
+          <strong>Tarifa Base:</strong>
+          L. {{delivery?.tarifaBase}}
+        </ion-col>
+        <ion-col size="12">
+          <strong>Recargos:</strong>
+          L. {{delivery?.recargos}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12">
+          <strong>Cargos Extra:</strong>
+          L. {{delivery?.cargosExtra}}
+        </ion-col>
+        <ion-col size="12">
+          <strong>Total:</strong>
+          L. {{delivery?.total}}
+        </ion-col>
+      </ion-row>
+
+    </ion-card-content>
+  </ion-card>
+</ion-content>

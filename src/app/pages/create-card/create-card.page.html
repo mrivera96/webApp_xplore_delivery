@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="xplore">
+    <ion-buttons slot="start">
+      <ion-back-button defaulHref="main" routerLink="/cards">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Nueva Tarjeta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">Número de tarjeta:</ion-label>
+      <ion-input type="tel" required inputmode="tel" placeholder="1234 5678 9012 3456">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Fecha de expiración:</ion-label>
+      <ion-input required type="tel" inputmode="tel" placeholder="01/2023">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">CVC/CVV:</ion-label>
+      <ion-input required  type="tel" inputmode="tel" placeholder="000">
+      </ion-input>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,132 @@
+<ion-header>
+  <ion-toolbar color="xplore">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalles de Delivery</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="nDeliveryForm">
+    <ion-list lines="full">
+      <ion-item>
+        <ion-label color="default" position="floating">Instruccciones de Recogida:</ion-label>
+        <ion-input type="text" placeholder="¿Necesitamos instrucciones para recoger este envío?" maxlength="80"
+          name="instRecogida" formControlName="instRecogida"></ion-input>
+        <ion-icon color="xplrsecond" slot="start" name="reader-outline"></ion-icon>
+      </ion-item>
+      <span class="error-message" *ngIf="controls.instRecogida.hasError('maxlength') && controls.instRecogida.touched">
+        *Las instrucciones no deben superar los 80 caracteres
+      </span>
+
+      <ion-item>
+        <ion-label color="default" position="floating">Detalle de envío:</ion-label>
+        <ion-input type="text" placeholder="¿Qué deseas enviar?" required maxlength="80" name="detalleEnvio"
+          formControlName="detalleEnvio">
+        </ion-input>
+        <ion-icon color="xplrsecond" slot="start" name="cube-outline"></ion-icon>
+      </ion-item>
+      <span class="error-message" *ngIf="controls.detalleEnvio.hasError('required') && controls.detalleEnvio.touched">
+        *Este campo es obligatorio
+      </span>
+
+      <ion-item>
+        <ion-label color="default" position="floating">Nombre de Destinatario:</ion-label>
+        <ion-input type="text" placeholder="¿A quién haces el envío?" required maxlength="80" name="nomDestinatario"
+          formControlName="nomDestinatario">
+        </ion-input>
+        <ion-icon color="xplrsecond" slot="start" name="person-outline"></ion-icon>
+      </ion-item>
+      <span class="error-message" *ngIf="controls.nomDestinatario.hasError('required') && controls.nomDestinatario.touched">
+        *Este campo es obligatorio
+      </span>
+
+      <ion-item>
+        <ion-label color="default" position="floating">Número de Teléfono Destinatario:</ion-label>
+        <ion-input appPhoneMask type="tel" inputmode="tel" name="numDestinatario" placeholder="ej. 9999-9999" required
+          minlength="9" maxlength="9" formControlName="numDestinatario">
+        </ion-input>
+        <ion-icon color="xplrsecond" slot="start" name="call-outline"></ion-icon>
+      </ion-item>
+      <span class="error-message" *ngIf="controls.numDestinatario.hasError('required') && controls.numDestinatario.touched">
+        *Este campo es obligatorio
+      </span>
+
+      <ion-item>
+        <ion-label color="default" position="floating">Instruccciones de Entrega:</ion-label>
+        <ion-input type="text" placeholder="¿Necesitamos instrucciones para entregar este envío?" maxlength="80"
+          name="instEntrega" formControlName="instEntrega"></ion-input>
+        <ion-icon color="xplrsecond" slot="start" name="reader-outline"></ion-icon>
+      </ion-item>
+
+      <ion-item *ngIf="schedule">
+        <ion-label position="floating">Fecha y hora:</ion-label>
+        <ion-datetime formControlName="fechaReserva" display-format="DD/MM/YYYY HH:mm" [min]="minDatetime">
+        </ion-datetime>
+        <ion-icon color="xplrsecond" slot="start" name="time-outline"></ion-icon>
+      </ion-item>
+
+    </ion-list>
+    <br>
+
+    <ion-list *ngIf="selectedCategory?.categoryExtraCharges?.length > 0">
+      <ion-list-header>
+        <ion-label>Servicios Adicionales</ion-label>
+      </ion-list-header>
+      <ion-item>
+
+        <ion-radio-group *ngFor="let extracharge of selectedCategory.categoryExtraCharges">
+          <ion-list-header>
+            <ion-label>{{extracharge.extra_charge.nombre}}</ion-label>
+          </ion-list-header>
+          <ion-item *ngFor="let option of extracharge.extra_charge.options">
+            <ion-label> {{option.descripcion + ' L.' + option.costo}}</ion-label>
+            <ion-radio slot="end" [value]="option"
+              (click)="addExtraCharge(!$event.checked,extracharge.extra_charge.idCargoExtra,option)"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-item>
+    </ion-list>
+
+    <ion-list>
+      <ion-list-header>
+        <ion-label>Detalles de Pago</ion-label>
+      </ion-list-header>
+
+      <ion-item>
+        <ion-label>Tarifa Base: L. {{orderPayment.baseRate}}</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Recargo Por Distancia: L. {{orderPayment.surcharges}}</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label >Cargos Extra: L. {{orderPayment.extraCharges}}</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label >Total: L. {{orderPayment.total}} </ion-label>
+      </ion-item>
+    </ion-list>
+
+  </form>
+  <br>
+  <br>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button type="button" [disabled]="nDeliveryForm.invalid" color="xplrsecond">
+      <ion-icon name="save-outline"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-list side="top">
+      <ion-fab-button data-desc="Solicitar Vehículo" (click)="openConfirmDelivery()">
+        <ion-icon name="car-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button data-desc="Agendar" (click)="setSchedule()">
+        <ion-icon name="calendar-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
+</ion-content>

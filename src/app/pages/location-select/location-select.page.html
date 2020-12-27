@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-toolbar color="xplore">
+    <ion-buttons slot="start">
+      <ion-back-button defaulHref="main">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Ubicación - {{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>Tipo Dirección de Recogida</ion-label>
+      <ion-select placeholder="Seleccione una opción" id="prevDirRecogida" [(ngModel)]="locationOption" required>
+        <ion-select-option [value]="1" (ionSelect)="setCurrentLocationOrigin()">Ubicación Actual</ion-select-option>
+        <ion-select-option [value]="2" (ionSelect)="clearLocationField()">Ingresar Ubicación
+        </ion-select-option>
+        <ion-select-option [value]="3" (ionSelect)="clearLocationField()">Dirección Existente
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item *ngIf="locationOption == 2 || locationOption == 1">
+      <ion-label color="default" position="floating">Punto de recogida:</ion-label>
+      <ion-input [(ngModel)]="autocomplete.input" (ionInput)="UpdateSearchResults()" placeholder="Buscar un lugar"
+        (ionClear)="ClearAutocomplete()" required maxlength="100" type="text">
+      </ion-input>
+      <ion-icon color="xplrsecond" slot="start" name="location-outline"></ion-icon>
+    </ion-item>
+    <ion-list [hidden]="autocompleteItems.length == 0">
+      <ion-item *ngFor="let item of autocompleteItems" tappable (click)="SelectSearchResult(item)">
+        {{ item.description }}
+      </ion-item>
+    </ion-list>
+
+    <ion-item *ngIf="locationOption == 3">
+      <ion-label>Punto de Recogida</ion-label>
+      <ion-select placeholder="Seleccione una dirección" [(ngModel)]="autocomplete.input" required>
+        <ion-select-option *ngFor="let branch of myBranchOffices" value="{{branch?.direccion}}">
+          {{branch.nomSucursal}}
+        </ion-select-option>
+      </ion-select>
+      <ion-icon color="xplrsecond" slot="start" name="location-outline"></ion-icon>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="default" position="floating">Punto de destino:</ion-label>
+      <ion-input [(ngModel)]="autocompleteDest.input" (ionInput)="UpdateSearchResultsDest()" placeholder="Buscar un lugar"
+        (ionClear)="ClearAutocompleteDest()" required maxlength="100" type="text">
+      </ion-input>
+      <ion-icon color="xplrsecond" slot="start" name="pin-outline"></ion-icon>
+    </ion-item>
+    <ion-list  [hidden]="autocompleteItemsDest.length == 0">
+      <ion-item *ngFor="let item of autocompleteItemsDest" tappable (click)="SelectSearchResultDest(item)">
+        {{ item.description }}
+      </ion-item>
+    </ion-list>
+
+  </ion-list>
+
+  <div class="map-wrapper" style="height: 95%;">
+    <div #map id="map" style="height: 100%;"></div>
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button *ngIf="!confirmedLocation" (click)="calculateAndDisplayRoute(); calculatedistanceBefore()" color="xplrsecond"
+      [disabled]="autocomplete.input == '' || autocompleteDest.input == ''">
+      <ion-icon name="map-outline"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-button *ngIf="confirmedLocation" color="xplrsecond"
+      [disabled]="autocomplete.input == '' || autocompleteDest.input == ''">
+      <ion-icon name="menu-outline"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-list side="top" *ngIf="confirmedLocation">
+      <ion-fab-button (click)="calculateAndDisplayRoute(); calculatedistanceBefore()" data-desc="Trazar Ruta">
+        <ion-icon name="map-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button [disabled]="prohibitedDistance" (click)="goCategorySelect()" data-desc="Confirmar Ruta">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+    
+  </ion-fab>
+
+</ion-content>

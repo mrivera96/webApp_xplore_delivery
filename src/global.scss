@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -24,3 +24,44 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+:root {
+    --ion-color-xplore: #0071a2;
+    --ion-color-xplore-rgb: 105, 187, 123;
+    --ion-color-xplore-contrast: #ffffff;
+    --ion-color-xplore-contrast-rgb: 255, 255, 255;
+    --ion-color-xplore-shade: #5ca56c;
+    --ion-color-xplore-tint: #78c288;
+
+    --ion-color-xplrsecond: #f9813a;
+    --ion-color-xplrsecond-rgb: 105, 187, 123;
+    --ion-color-xplrsecond-contrast: #ffffff;
+    --ion-color-xplrsecond-contrast-rgb: 255, 255, 255;
+    --ion-color-xplrsecond-shade: #5ca56c;
+    --ion-color-xplrsecond-tint: #78c288;
+}
+
+.ion-color-xplore {
+    --ion-color-base: var(--ion-color-xplore);
+    --ion-color-base-rgb: var(--ion-color-xplore-rgb);
+    --ion-color-contrast: var(--ion-color-xplore-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-xplore-contrast-rgb);
+    --ion-color-shade: var(--ion-color-xplore-shade);
+    --ion-color-tint: var(--ion-color-xplore-tint);
+}
+
+.ion-color-xplrsecond {
+    --ion-color-base: var(--ion-color-xplrsecond);
+    --ion-color-base-rgb: var(--ion-color-xplrsecond-rgb);
+    --ion-color-contrast: var(--ion-color-xplrsecond-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-xplrsecond-contrast-rgb);
+    --ion-color-shade: var(--ion-color-xplrsecond-shade);
+    --ion-color-tint: var(--ion-color-xplrsecond-tint);
+}
+
+.error-message {
+    font-size: x-small;
+    color: red;
+}
+
+

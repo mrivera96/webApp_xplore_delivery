@@ -1,0 +1,189 @@
+<ion-header>
+  <ion-toolbar color="xplore">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="nCustomerForm" (ngSubmit)="formSubmit(nCustomerForm.value)">
+    <ion-list lines="full">
+      <ion-item>
+        <ion-label color="default" position="floating">Nombre:</ion-label>
+        <ion-input type="text" placeholder="Ingresa tu nombre" required maxlength="80" name="nomRepresentante"
+          formControlName="nomRepresentante"></ion-input>
+          <ion-icon color="xplrsecond" slot="start" name="person-circle-outline"></ion-icon>
+      </ion-item>
+      <span class="error-message" *ngIf="controls.nomRepresentante.hasError('required') && controls.nomRepresentante.touched">
+        *Este campo es obligatorio
+      </span>
+
+      <ion-item>
+        <ion-label color="default" position="floating">Número de Teléfono:</ion-label>
+        <ion-input appPhoneMask type="tel" inputmode="tel" name="numTelefono" placeholder="ej. 9999-9999"
+          formControlName="numTelefono" required minlength="9" maxlength="9">
+        </ion-input>
+        <ion-icon color="xplrsecond" slot="start" name="call-outline"></ion-icon>
+      </ion-item>
+
+      <span class="error-message" *ngIf="controls.numTelefono.hasError('required') && controls.numTelefono.touched">
+        *Este campo es obligatorio
+      </span>
+      <span class="error-message" *ngIf="controls.numTelefono.hasError('maxlength') && controls.numTelefono.touched">
+        *Ingresa un número telefónico válido
+      </span>
+      <span class="error-message" *ngIf="controls.numTelefono.hasError('minlength') && controls.numTelefono.touched">
+        *Ingresa un número telefónico válido
+      </span>
+
+      <ion-item>
+        <ion-label color="default" position="floating">e-mail:</ion-label>
+        <ion-input name="email" type="email" formControlName="email" required maxlength="50"
+          pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="ejemplo@email.com"></ion-input>
+          <ion-icon color="xplrsecond" slot="start" name="mail-outline"></ion-icon>
+      </ion-item>
+      <span class="error-message" *ngIf="controls.email.hasError('required') && controls.email.touched">
+        *Este campo es obligatorio
+      </span>
+      <span class="error-message" *ngIf="controls.email.hasError('pattern') && controls.email.touched">
+        *Ingresa un email válido
+      </span>
+
+      <ion-item>
+        <ion-label color="default" position="floating">Contraseña:</ion-label>
+        <ion-input type="password" placeholder="Ingresa tu contraseña" minlength="8" formControlName="newPass"></ion-input>
+        <ion-icon color="xplrsecond" slot="start" name="lock-closed-outline"></ion-icon>
+      </ion-item>
+
+      <span class="error-message" *ngIf="controls.newPass.errors?.required && controls.newPass.touched">
+        *Este campo es obligatorio
+      </span>
+      <span class="error-message" *ngIf="controls.newPass.errors?.minlength && controls.newPass.touched">
+        *La contraseña debe tener al menos 8 caracteres
+      </span>
+      <span class="error-message" *ngIf="controls.newPass.errors?.mustCapital && controls.newPass.touched">
+        *Debe incluir 1 mayúscula
+      </span>
+      <span class="error-message" *ngIf="controls.newPass.errors?.mustNum && controls.newPass.touched">
+        *Debe incluir 1 número
+      </span>
+      <span class="error-message" *ngIf="controls.newPass.errors?.mustSpecial && controls.newPass.touched">
+        *Debe incluir 1 caracter especial
+      </span>
+
+      <ion-item>
+        <ion-label color="default" position="floating">Confirmar Contraseña:</ion-label>
+        <ion-input type="password" placeholder="Ingresa tu contraseña nuevamente" minlength="8" required formControlName="confirmNewPass"></ion-input>
+        <ion-icon color="xplrsecond" slot="start" name="bag-check-outline"></ion-icon>
+      </ion-item>
+
+      <span class="error-message" *ngIf="controls.confirmNewPass.errors?.required && controls.confirmNewPass.touched">
+        *Este campo es obligatorio
+      </span>
+      <span class="error-message" *ngIf="controls.confirmNewPass.errors?.minlength && controls.confirmNewPass.touched">
+        *La contraseña debe tener al menos 8 caracteres
+      </span>
+      <span class="error-message" *ngIf="controls.confirmNewPass.errors?.mustMatch && controls.confirmNewPass.touched">
+        *Debe coincidir con la nueva contraseña
+      </span>
+    </ion-list>
+    <br>
+    <br>
+    <br>
+    <ion-row>
+      <ion-col>
+        <ion-button [disabled]="nCustomerForm.invalid" color="xplore" type="submit" expand="block" fill="outline" shape="round">
+          Registrar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+
+
+  <!-- <div class="form-row">
+      <mat-form-field appearance="outline" floatLabel="always" class="col-sm">
+        <mat-label>Nombre de Empresa:</mat-label>
+        <input matInput id="nomEmpresa" type="text" formControlName="nomEmpresa" required
+               placeholder="Nombre de la empresa" maxlength="80">
+        <mat-icon matSuffix>business</mat-icon>
+        <mat-error>*Este campo es obligatorio</mat-error>
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="col-sm">
+        <mat-label>Nombre del Representante:</mat-label>
+        <input matInput id="nomRepresentante" type="text" formControlName="nomRepresentante" required
+               placeholder="Nombre del representante" maxlength="80">
+        <mat-icon matSuffix>person</mat-icon>
+        <mat-error>*Este campo es obligatorio</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="col-sm">
+        <mat-label>Número de Identificación:</mat-label>
+        <input matInput id="numIdentificacion" type="text" formControlName="numIdentificacion"
+               minlength="13" maxlength="14" placeholder="Ej. 1111333355555">
+        <mat-icon matSuffix>subtitles</mat-icon>
+        <mat-error *ngIf="f.numIdentificacion.errors?.required">
+          *Este campo es obligatorio
+        </mat-error>
+        <mat-error *ngIf="f.numIdentificacion.errors?.maxlength">
+          *Por favor ingrese el número de identificación sin espacios ni guiones
+        </mat-error>
+        <mat-error *ngIf="f.numIdentificacion.errors?.minlength">
+          *Por favor ingrese el número de identificación sin espacios ni guiones
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <mat-form-field appearance="outline" floatLabel="always" class="col-md">
+        <mat-label>Número de Teléfono:</mat-label>
+        <input appPhoneMask matInput id="numTelefono" type="tel" formControlName="numTelefono" autocomplete="nope"
+               required placeholder="Ej. 9999-9999 (Guión automáticamente)" minlength="9" maxlength="9">
+        <mat-icon matSuffix>phone</mat-icon>
+        <mat-error *ngIf="f.numTelefono.errors?.required">
+          *Este campo es obligatorio
+        </mat-error>
+        <mat-error *ngIf="f.numTelefono.errors?.maxlength">
+          *Por favor ingrese un número válido
+        </mat-error>
+        <mat-error *ngIf="f.numTelefono.errors?.minlength">
+          *Por favor ingrese un número válido
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always" class="col-md">
+        <mat-label>email:</mat-label>
+        <input matInput id="email" type="email" formControlName="email" required maxlength="50"
+               pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="ejemplo@email.com">
+        <mat-icon matSuffix>alternate_email</mat-icon>
+        <mat-error *ngIf="f.email.errors?.required">
+          *Este campo es obligatorio
+        </mat-error>
+        <mat-error *ngIf="f.email.errors?.pattern">
+          *Por favor ingrese un email válido
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" floatLabel="always" class="col-md">
+        <mat-label>Días de gracia:</mat-label>
+        <input matInput id="diasGracia" type="number" formControlName="diasGracia" autocomplete="nope"
+               required placeholder="Ej. 5" minlength="1">
+        <mat-icon matSuffix>schedule</mat-icon>
+        <mat-error *ngIf="f.diasGracia.errors?.required">
+          *Este campo es obligatorio
+        </mat-error>
+        <mat-error *ngIf="f.diasGracia.errors?.minlength">
+          *Por favor ingrese un número válido
+        </mat-error>
+      </mat-form-field>
+    </div>
+    
+    <div class="form-row">
+      <mat-slide-toggle formControlName="enviarNotificaciones">Enviar Notificaciones</mat-slide-toggle>
+    </div> -->
+
+</ion-content>

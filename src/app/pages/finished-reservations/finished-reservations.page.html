@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar color="xplore">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="true"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Solicitudes Finalizadas</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list lines="full">
+    <ion-item *ngFor="let delivery of myReservations" routerLink="/reservation-details/{{delivery.idDelivery}}">
+
+      <ion-icon slot="start" color="xplrsecond" *ngIf="delivery.idEstado == 37 || delivery.idEstado == 38 "
+        name="car-sport-outline"></ion-icon>
+      <ion-icon slot="start" color="xplrsecond" *ngIf="delivery.idEstado == 34" name="time-outline"></ion-icon>
+      <ion-icon slot="start" color="xplrsecond" *ngIf="delivery.idEstado == 39" name="checkmark-circle-outline">
+      </ion-icon>
+      <ion-icon slot="start" color="xplrsecond" *ngIf="delivery.idEstado == 36" name="close-circle-outline"></ion-icon>
+
+      <ion-label>
+        <h2>No. Reserva {{delivery.idDelivery}}</h2>
+        <h3>{{delivery.fechaReserva}}</h3>
+        <p> Estado: {{delivery.estado.descEstado}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

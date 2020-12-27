@@ -1,0 +1,92 @@
+<ion-header >
+  <ion-toolbar>
+    <ion-title>Iniciar Sesión</ion-title>
+    <ion-buttons slot="end" >
+      <ion-button (click)="dismissModal()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-img src="assets/img/DELIVERY-fullcolor.png" width="60" ></ion-img>
+
+  <ion-row>
+    <ion-col class="ion-text-center" size="12">
+      <h2 color="xplrsecond">¡Bienvenido(a) a Xplore Delivery!</h2>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12">
+      <form [formGroup]="signInForm">
+        <ion-list lines="full">
+
+          <ion-item>
+            <ion-label color="default" position="floating">Ingresa tu número de teléfono:</ion-label>
+            <ion-input required appPhoneMask type="tel" inputmode="tel" formControlName="numTelefono" 
+            minlength="9" placeholder="ej. 9999-9999" maxlength="9" [readonly]="verifiedNumber">
+            </ion-input>
+            <ion-icon color="xplrsecond" slot="start" name="call-outline"></ion-icon>
+          </ion-item>
+
+          <span class="error-message" *ngIf="controls.numTelefono.hasError('required') && controls.numTelefono.touched">
+            *Este campo es obligatorio
+          </span>
+          <span class="error-message" *ngIf="controls.numTelefono.hasError('maxlength') && controls.numTelefono.touched">
+            *Ingresa un número telefónico válido
+          </span>
+          <span class="error-message" *ngIf="controls.numTelefono.hasError('minlength') && controls.numTelefono.touched">
+            *Ingresa un número telefónico válido
+          </span>
+
+          <ion-item *ngIf="mailLogin">
+            <ion-label color="default" position="floating">Ingresa tu correo electrónico:</ion-label>
+            <ion-input required maxlength="50" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" type="text" formControlName="email" [readonly]="verifiedEmail">
+            </ion-input>
+            <ion-icon color="xplrsecond" slot="start" name="mail-outline"></ion-icon>
+          </ion-item>
+          <span class="error-message" *ngIf="controls.email.hasError('required') && controls.email.touched">
+            *Este campo es obligatorio
+          </span>
+          <span class="error-message" *ngIf="controls.email.hasError('pattern') && controls.email.touched">
+            *Ingresa un email válido
+          </span>
+          <span class="error-message" *ngIf="controls.email.hasError('invalidEmail') && controls.email.touched">
+            *El email que ingresaste no se encuentra en nuestros registros
+          </span>
+
+          <ion-item *ngIf="verifiedEmail || verifiedNumber">
+            <ion-label color="default" position="floating">Ingresa tu contraseña:</ion-label>
+            <ion-input required maxlength="50" formControlName="password" type="password">
+            </ion-input>
+            <ion-icon color="xplrsecond" slot="start" name="lock-closed-outline"></ion-icon>
+          </ion-item>
+          <span class="error-message" *ngIf="controls.password.hasError('required') && controls.password.touched">
+            *Este campo es obligatorio
+          </span>
+        </ion-list>
+      </form>
+    </ion-col>
+  </ion-row>
+
+  <br>
+  <ion-row>
+    <ion-col class="ion-text-center">
+      <ion-button (click)="verifyNumber()" color="xplore" type="button" expand="block" fill="outline" 
+      shape="round" *ngIf="!verifiedNumber" [disabled]="controls.numTelefono.invalid">
+        Continuar
+      </ion-button>
+      <ion-button  (click)="verifyMail()" color="xplore" type="button" expand="block" fill="outline" 
+      shape="round" *ngIf="!verifiedEmail && mailLogin" [disabled]="controls.email.invalid">
+        Continuar
+      </ion-button>
+      <ion-button (click)="onFormSubmit()" color="xplore" type="button" expand="block" fill="outline" shape="round" 
+      *ngIf="verifiedEmail || verifiedNumber" [disabled]="signInForm.invalid || loaders.loadingSubmit">
+        Ingresar
+      </ion-button>
+      <ion-spinner name="crescent" *ngIf="loaders.loadingVerifying || loaders.loadingSubmit"></ion-spinner>
+    </ion-col>
+  </ion-row>
+
+</ion-content>
