@@ -55,7 +55,31 @@
     </ion-item>
   </ion-list>
 
+  <ion-list lines="full" *ngIf="title == 'Traslado'">
+    <ion-radio-group [(ngModel)]="selectedCard" >
+      <ion-list-header>
+        <ion-label>Forma de Pago</ion-label>
+      </ion-list-header>
   
+      <ion-item *ngFor="let card of myCards" >
+        <ion-label>
+          <h2>{{card.token_card}}</h2>
+          <p>{{card.mes}}/{{card.anio}}</p>
+        </ion-label>
+        <fa-icon style="color: #f9813a;"  slot="start" icon="credit-card"></fa-icon>
+        <ion-radio slot="end" [value]="card"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+    
+    <ion-item *ngIf="myCards.length == 0">
+      <ion-label>
+        <h2>No hay formas de pago registradas</h2>
+        <a routerLink="/create-card">Agregar tarjeta</a>
+      </ion-label>
+      <fa-icon style="color: #f9813a;"  slot="start" icon="credit-card"
+         ></fa-icon>
+    </ion-item>
+  </ion-list>
 
 
   <!-- <ion-list *ngIf="title == 'Delivery'">
@@ -78,7 +102,7 @@
   </ion-fab>
 
   <ion-fab *ngIf="title === 'Traslado'" vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button type="button" [disabled]="!selectedCategory.descCategoria" color="xplrsecond" (click)="openConfirmTraslate()">
+    <ion-fab-button type="button" [disabled]="!selectedCategory.descCategoria || !selectedCard.idFormaPago" color="xplrsecond" (click)="openConfirmTraslate()">
       <ion-icon name="save-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>

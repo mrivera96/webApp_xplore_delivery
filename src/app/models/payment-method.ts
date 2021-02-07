@@ -8,4 +8,5 @@ export interface PaymentMethod {
     cvv?: string
     idCliente?: number
     cliente?: Customer
+    vencimiento?: string
 }

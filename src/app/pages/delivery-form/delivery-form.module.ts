@@ -8,7 +8,7 @@ import { AdditionalFormPageRoutingModule } from './delivery-form-routing.module'
 
 import { DeliveryFormPage } from './delivery-form.page';
 import { Dialogs } from '@ionic-native/dialogs/ngx';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
@@ -18,7 +18,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     IonicModule,
     ReactiveFormsModule,
     AdditionalFormPageRoutingModule,
-    SharedModule
+    SharedModule,
+    FontAwesomeModule
   ],
   declarations: [DeliveryFormPage,],
   providers:[Dialogs],

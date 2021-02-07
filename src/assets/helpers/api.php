@@ -2249,5 +2249,104 @@ if (isset($_GET['function'])) {
 
         $output = curl_exec($handle);
         curl_close($handle);
+    }else if ($_POST['function'] == 'tokenizeCard') {
+        $post = file_get_contents('php://input');
+        $array = json_decode($post);
+		$idCust = $_POST['idCliente'];
+		$card = $_POST['tarjeta'];
+		$expire = $_POST['expira'];
+		$cvv = $_POST['cvv'];
+
+        $handle = curl_init();
+
+        $url = "http://190.4.56.14/XploreRestApiDesa/bac/tokenizar?idcliente=".$idCust."&tarjeta=".$card."&vencimiento=".$expire."&cvv=".$cvv;
+		$authorization = 'Authorization: Basic '. base64_encode("Webapi:Xplore19$");
+
+        // Set the url
+        curl_setopt($handle, CURLOPT_URL, $url);
+
+        curl_setopt($handle, CURLOPT_HTTPHEADER, array('api_key:Xplore19$', $authorization));
+        /* set return type json */
+
+        $output = curl_exec($handle);
+        curl_close($handle);
+    }else if ($_POST['function'] == 'createPaymentMethod') {
+        $post = file_get_contents('php://input');
+        $array = json_decode($post);
+
+        $handle = curl_init();
+
+        $url = "http://190.4.56.14/" . $environment . "/api/customers/paymentMethods/create";
+        $authorization = 'Authorization: Bearer ' . $_POST['tkn'];
+
+        // Set the url
+        curl_setopt($handle, CURLOPT_URL, $url);
+
+        curl_setopt($handle, CURLOPT_POST, TRUE);
+        curl_setopt($handle, CURLOPT_POSTFIELDS, $post);
+        curl_setopt($handle, CURLOPT_HTTPHEADER, array('Content-Type:application/json', 'Accept:application/json', $authorization));
+        /* set return type json */
+
+        $output = curl_exec($handle);
+        curl_close($handle);
+    }else if ($_POST['function'] == 'editPaymentMethod') {
+        $post = file_get_contents('php://input');
+        $array = json_decode($post);
+
+        $handle = curl_init();
+
+        $url = "http://190.4.56.14/" . $environment . "/api/customers/paymentMethods/update";
+        $authorization = 'Authorization: Bearer ' . $_POST['tkn'];
+
+        // Set the url
+        curl_setopt($handle, CURLOPT_URL, $url);
+
+        curl_setopt($handle, CURLOPT_POST, TRUE);
+        curl_setopt($handle, CURLOPT_POSTFIELDS, $post);
+        curl_setopt($handle, CURLOPT_HTTPHEADER, array('Content-Type:application/json', 'Accept:application/json', $authorization));
+        /* set return type json */
+
+        $output = curl_exec($handle);
+        curl_close($handle);
+    }else if ($_POST['function'] == 'autorizePayment') {
+        $post = file_get_contents('php://input');
+        $array = json_decode($post);
+		$card = $_POST['tarjeta'];
+		$expire = $_POST['expira'];
+		$cvv = $_POST['cvv'];
+        $amount = $_POST['monto'];
+
+        $handle = curl_init();
+
+        $url = "http://190.4.56.14/XploreRestApiDesa/bac/autorizar?tarjeta=".$card."&vencimiento=".$expire."&cvv=".$cvv."&monto=".$amount;
+		$authorization = 'Authorization: Basic '. base64_encode("Webapi:Xplore19$");
+
+        // Set the url
+        curl_setopt($handle, CURLOPT_URL, $url);
+
+        curl_setopt($handle, CURLOPT_HTTPHEADER, array('api_key:Xplore19$', $authorization));
+        /* set return type json */
+
+        $output = curl_exec($handle);
+        curl_close($handle);
+    }else if ($_POST['function'] == 'saveFailTransaction') {
+        $post = file_get_contents('php://input');
+        $array = json_decode($post);
+
+        $handle = curl_init();
+
+        $url = "http://190.4.56.14/" . $environment . "/api/customers/paymentMethods/saveFailTransaction";
+        $authorization = 'Authorization: Bearer ' . $_POST['tkn'];
+
+        // Set the url
+        curl_setopt($handle, CURLOPT_URL, $url);
+
+        curl_setopt($handle, CURLOPT_POST, TRUE);
+        curl_setopt($handle, CURLOPT_POSTFIELDS, $post);
+        curl_setopt($handle, CURLOPT_HTTPHEADER, array('Content-Type:application/json', 'Accept:application/json', $authorization));
+        /* set return type json */
+
+        $output = curl_exec($handle);
+        curl_close($handle);
     }
 }

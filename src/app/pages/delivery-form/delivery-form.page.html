@@ -88,34 +88,58 @@
         </ion-radio-group>
       </ion-item>
     </ion-list>
-
-    <ion-list>
-      <ion-list-header>
-        <ion-label>Detalles de Pago</ion-label>
-      </ion-list-header>
-
-      <ion-item>
-        <ion-label>Tarifa Base: L. {{orderPayment.baseRate}}</ion-label>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Recargo Por Distancia: L. {{orderPayment.surcharges}}</ion-label>
-      </ion-item>
-
-      <ion-item>
-        <ion-label >Cargos Extra: L. {{orderPayment.extraCharges}}</ion-label>
-      </ion-item>
-
-      <ion-item>
-        <ion-label >Total: L. {{orderPayment.total}} </ion-label>
-      </ion-item>
-    </ion-list>
-
   </form>
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Detalles de Pago</ion-label>
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label>Tarifa Base: L. {{orderPayment.baseRate}}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Recargo Por Distancia: L. {{orderPayment.surcharges}}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label >Cargos Extra: L. {{orderPayment.extraCharges}}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label >Total: L. {{orderPayment.total}} </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list lines="full">
+    <ion-radio-group [(ngModel)]="selectedCard" >
+      <ion-list-header>
+        <ion-label>Forma de Pago</ion-label>
+      </ion-list-header>
+  
+      <ion-item *ngFor="let card of myCards" >
+        <ion-label>
+          <h2>{{card.token_card}}</h2>
+          <p>{{card.mes}}/{{card.anio}}</p>
+        </ion-label>
+        <fa-icon style="color: #f9813a;"  slot="start" icon="credit-card"></fa-icon>
+        <ion-radio slot="end" [value]="card"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+    
+    <ion-item *ngIf="myCards.length == 0">
+      <ion-label>
+        <h2>No hay formas de pago registradas</h2>
+        <a routerLink="/create-card">Agregar tarjeta</a>
+      </ion-label>
+      <fa-icon style="color: #f9813a;"  slot="start" icon="credit-card"
+         ></fa-icon>
+    </ion-item>
+  </ion-list>
   <br>
   <br>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button type="button" [disabled]="nDeliveryForm.invalid" color="xplrsecond">
+    <ion-fab-button type="button" [disabled]="nDeliveryForm.invalid || !selectedCard.idFormaPago" color="xplrsecond">
       <ion-icon name="save-outline"></ion-icon>
     </ion-fab-button>
 

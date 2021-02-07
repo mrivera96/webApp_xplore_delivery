@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {Dialogs} from '@ionic-native/dialogs/ngx';
-import {LoadingController, NavController} from '@ionic/angular';
-import {Branch} from 'src/app/models/branch';
-import {BranchOfficeService} from 'src/app/services/branch-office.service';
-import {NavParamService} from '../../services/nav-param.service';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Dialogs } from '@ionic-native/dialogs/ngx';
+import { LoadingController, NavController } from '@ionic/angular';
+import { Branch } from 'src/app/models/branch';
+import { BranchOfficeService } from 'src/app/services/branch-office.service';
+import { NavParamService } from '../../services/nav-param.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-my-adresses',
@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
     styleUrls: ['./my-addresses.page.scss'],
 })
 export class MyAddressesPage implements OnInit {
-    myAddresses: Branch [] = [];
+    myAddresses: Branch[] = [];
 
     constructor(
         private branchesService: BranchOfficeService,
@@ -25,7 +25,6 @@ export class MyAddressesPage implements OnInit {
     }
 
     ngOnInit() {
-
         this.loadData();
     }
 

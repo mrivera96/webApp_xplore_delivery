@@ -138,4 +138,24 @@ export class CreateAdressPage implements OnInit {
         return await loading.present();
     }
 
+    async openErrorAlert(msg) {
+        const alert = await this.atrCtrl.create({
+          header: 'Error',
+          message: msg,
+          buttons: [{
+            text: 'Aceptar',
+            role: 'OK',
+            handler: (blah) => {
+              alert.dismiss();
+            }
+          }]
+        });
+    
+        await alert.present();
+    
+        alert.onDidDismiss().then(() => {
+          alert.dismiss()
+        });
+      }
+
 }

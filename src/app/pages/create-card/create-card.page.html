@@ -36,7 +36,7 @@
   
   
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button type="button" color="xplrsecond">
+    <ion-fab-button [disabled]="nCardForm.invalid" type="button" color="xplrsecond" (click)="openConfirmSave()">
       <ion-icon name="save-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>

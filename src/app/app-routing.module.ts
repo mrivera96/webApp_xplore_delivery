@@ -99,6 +99,7 @@ const routes: Routes = [
     path: 'confirmation',
     loadChildren: () => import('./pages/confirmation-page/confirmation-page.module').then(m => m.ConfirmationPagePageModule)
   },
+  {path: '**', redirectTo: ''}
 
 ];
 @NgModule({

@@ -25,10 +25,9 @@
   </ion-list> -->
 
   <ion-list lines="full">
-    <ion-item *ngFor="let card of myCards" >
+    <ion-item *ngFor="let card of myCards" (click)="editCard(card)" >
       <ion-label>
         <h2>{{card.token_card}}</h2>
-        <h3>[[Tipo de Tarjeta]]</h3>
         <p>{{card.mes}}/{{card.anio}}</p>
       </ion-label>
       <fa-icon style="color: #f9813a;"  slot="start" icon="credit-card"

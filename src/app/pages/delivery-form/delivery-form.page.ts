@@ -1,11 +1,13 @@
-import {formatDate} from '@angular/common';
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {AlertController, LoadingController, NavController} from '@ionic/angular';
-import {Category} from 'src/app/models/category';
-import {DeliveriesService} from 'src/app/services/deliveries.service';
-import {NavParamService} from 'src/app/services/nav-param.service';
+import { formatDate } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AlertController, LoadingController, NavController } from '@ionic/angular';
+import { Category } from 'src/app/models/category';
+import { PaymentMethod } from 'src/app/models/payment-method';
+import { DeliveriesService } from 'src/app/services/deliveries.service';
+import { NavParamService } from 'src/app/services/nav-param.service';
+import { PaymentMethodsService } from 'src/app/services/payment-methods.service';
 
 @Component({
     selector: 'app-additional-form',
@@ -20,12 +22,14 @@ export class DeliveryFormPage implements OnInit {
     extra: any;
     schedule = false;
     minDatetime: any = formatDate(new Date().setHours(new Date().getHours(), new Date().getMinutes() + 30), 'yyyy-MM-ddTHH:mm', 'en');
-
+    myCards: PaymentMethod[] = []
+    selectedCard: PaymentMethod = {}
     constructor(
         private formBuilder: FormBuilder,
         private navParamService: NavParamService,
         private deliveriesService: DeliveriesService,
         public loadingController: LoadingController,
+        private cardsService: PaymentMethodsService,
         public atrCtrl: AlertController,
         private router: Router,
         public navCtrl: NavController
@@ -36,7 +40,12 @@ export class DeliveryFormPage implements OnInit {
     }
 
     ngOnInit() {
-        this.initialize();
+        if (this.data == 0) {
+            this.navCtrl.back()
+        } else {
+            this.initialize()
+            this.loadData()
+        }
     }
 
     initialize() {
@@ -48,6 +57,18 @@ export class DeliveryFormPage implements OnInit {
             instEntrega: ['', [Validators.maxLength(150)]],
             fechaReserva: [formatDate(new Date().setHours(new Date().getHours(), new Date().getMinutes() + 30), 'yyyy-MM-dd HH:mm', 'en')]
         });
+    }
+
+    loadData() {
+        const cardSubs = this.cardsService.getPaymentMethods()
+            .subscribe(response => {
+                this.myCards = response.data
+                this.myCards.forEach(card => {
+                    card.mes = +card.vencimiento.substring(0, 2)
+                    card.anio = +card.vencimiento.substring(2, 4)
+                })
+                cardSubs.unsubscribe()
+            })
     }
 
     get controls() {
@@ -71,19 +92,20 @@ export class DeliveryFormPage implements OnInit {
         }
     }
 
-    async presentLoading() {
+    async presentLoading(msg) {
         const loading = await this.loadingController.create({
-            message: 'Por favor espera un momento...',
+            message: msg,
             translucent: true,
         });
         return await loading.present();
     }
 
-    requestVehicle() {
-        this.presentLoading();
+    requestVehicle(transactionDetails) {
+        this.presentLoading('Por favor espera un momento...');
         this.data.extra = this.extra;
         this.data.payment = this.orderPayment;
         this.data.orderDetail = this.nDeliveryForm.value;
+        this.data.transactionDetails = transactionDetails
         const delSubs = this.deliveriesService.newDelivery(this.data)
             .subscribe(response => {
                 delSubs.unsubscribe();
@@ -128,7 +150,7 @@ export class DeliveryFormPage implements OnInit {
                     text: 'Confirmar',
                     role: 'OK',
                     handler: () => {
-                        this.requestVehicle();
+                        this.autorizePayment();
                     }
                 }
             ]
@@ -146,7 +168,13 @@ export class DeliveryFormPage implements OnInit {
         const alert = await this.atrCtrl.create({
             header: 'Error',
             message: msg,
-            buttons: ['OK']
+            buttons: [{
+                text: 'Aceptar',
+                role: 'OK',
+                handler: (blah) => {
+                    alert.dismiss();
+                }
+            }]
         });
 
         await alert.present();
@@ -154,6 +182,38 @@ export class DeliveryFormPage implements OnInit {
         alert.onDidDismiss().then(() => {
             alert.dismiss()
         });
+    }
+
+    autorizePayment() {
+        this.presentLoading('Autorizando pago, por favor espera un momento...')
+        const paymentObject = {
+            cardNumber: this.selectedCard.token_card,
+            expDate: this.selectedCard.vencimiento,
+            cvv: this.selectedCard.cvv,
+            amount: this.orderPayment.total
+        }
+        this.cardsService.autorizePayment(paymentObject)
+            .subscribe(response => {
+                this.loadingController.dismiss()
+                const transactionDetails = {
+                    reasonCode: response.CreditCardTransactionResults.ReasonCode,
+                    reasonCodeDescription: response.CreditCardTransactionResults.ReasonCodeDescription,
+                    authCode: response.CreditCardTransactionResults.AuthCode,
+                    orderNumber: response.OrderNumber
+                }
+
+                if (response.CreditCardTransactionResults.ReasonCode == 1 && response.CreditCardTransactionResults.ResponseCode == 1) {
+
+                    this.requestVehicle(transactionDetails)
+
+                } else {
+                    this.cardsService.saveFailTransaction(transactionDetails)
+                        .subscribe(response => {
+                            console.log(response)
+                        })
+                    this.openErrorAlert(response.CreditCardTransactionResults.ReasonCodeDescription)
+                }
+            })
     }
 
 }

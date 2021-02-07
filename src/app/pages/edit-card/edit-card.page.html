@@ -1,9 +1,37 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>edit-card</ion-title>
+  <ion-toolbar color="xplore">
+    <ion-buttons slot="start">
+      <ion-back-button defaulHref="main" routerLink="/cards">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Editar Tarjeta</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <form [formGroup]="editCardForm">
+    <ion-list lines="full">
+      
+      <ion-item>
+        <ion-label color="default" position="floating">Fecha de expiración:</ion-label>
+        <ion-input appExpDate formControlName="expDate" type="tel" minlength="4" maxlength="4"
+          placeholder="MM/AA (04/25)"></ion-input>
+        <ion-icon color="xplrsecond" slot="start" name="calendar-outline"></ion-icon>
+      </ion-item>
 
+      <ion-item>
+        <ion-label color="default" position="floating">CVC/CVV:</ion-label>
+        <ion-input required type="number" formControlName="cvv" onKeyPress="if(this.value.length==3) return false;"
+          placeholder="000">
+        </ion-input>
+        <ion-icon color="xplrsecond" slot="start" name="lock-closed-outline"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </form>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button type="button" [disabled]="editCardForm.invalid" color="xplrsecond" (click)="openConfirmSave()">
+      <ion-icon name="save-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
