@@ -163,7 +163,7 @@ export class CategorySelectPage implements OnInit {
     this.presentLoading('Por favor espera un momento...')
     this.data.category = this.selectedCategory
     this.data.payment = this.orderPayment,
-      this.data.transactionDetails = transactionDetails
+    this.data.transactionDetails = transactionDetails
     const delSubscription = this.deliveriesService.newTraslate(this.data)
       .subscribe(response => {
         delSubscription.unsubscribe()
